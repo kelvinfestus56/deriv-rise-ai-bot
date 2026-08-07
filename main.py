@@ -9,13 +9,18 @@ async def connect_deriv():
     async with websockets.connect(DERIV_WS) as ws:
         print("Connected to Deriv")
 
-        await ws.send(json.dumps({
+        request = {
             "ticks": "R_10"
-        }))
+        }
+
+        await ws.send(json.dumps(request))
 
         while True:
             data = await ws.recv()
-            print(data)
+            tick = json.loads(data)
+
+            print(tick)
 
 
-asyncio.run(connect_deriv())
+if __name__ == "__main__":
+    asyncio.run(connect_deriv())
