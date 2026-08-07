@@ -20,7 +20,9 @@ async def connect_deriv():
     async with websockets.connect(DERIV_WS) as ws:
 
         print("Connected to Deriv")
-
+    while True:
+    data = await ws.recv()
+    print(data)
         request = {
             "ticks": "R_10"
         }
